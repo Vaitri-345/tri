@@ -17,7 +17,6 @@ def speak(text):
 
 def get_weather(city):
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={OPENWEATHER_API_KEY}&units=metric"
-    response = requests.get(url)
     data = response.json()
 
     if response.status_code == 200:
@@ -28,8 +27,6 @@ def get_weather(city):
         return "Sorry, I couldn't find the weather for that location."
 
 @app.route("/")
-def home():
-    return render_template("index.html", chat=chat_history)
 
 @app.route("/ask", methods=["POST"])
 def ask():
