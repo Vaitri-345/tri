@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tri Assistant - Day 12</title>
+</head>
+<body>
+    <h1>Welcome to Tri Assistant 👋</h1>
+    {% for chat in chat %}
+        <p><strong>You:</strong> {{ chat.you }}</p>
+        <p><strong>Tri:</strong> {{ chat.tri }}</p>
+        <hr>
+    {% endfor %}
+    <form action="/ask" method="post">
+        <input type="text" name="message" placeholder="Ask me anything..." required>
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>
