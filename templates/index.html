@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tri</title>
+    <style>
+        body { font-family: Arial; background: #f1f3f4; padding: 40px; }
+        h1 { color: #333; }
+        form { margin-bottom: 20px; }
+        input[type=text] {
+            width: 300px; padding: 10px; font-size: 16px;
+        }
+        input[type=submit], button {
+            padding: 10px 20px; font-size: 16px;
+            cursor: pointer;
+        }
+        .result {
+            background: white; padding: 20px;
+            border-radius: 10px; max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ask Me Anything – Tri 🔍🎤🔊</h1>
+
+    <form method="POST">
+        <input type="text" name="question" id="question" placeholder="Type or speak your question..." required>
+        <input type="submit" value="Search">
+        <button type="button" onclick="startListening()">🎙️ Speak</button>
+    </form>
+
+    {% if answer %}
+        <div class="result">
+            <h3>Answer:</h3>
+            <p id="spoken-answer">{{ answer }}</p>
+        </div>
+    {% endif %}
+
+    <script>
+        function startListening() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                const speechResult = event.results[0][0].transcript;
+                document.getElementById("question").value = speechResult;
+                document.querySelector("form").submit();
+            }
+
+            recognition.onerror = function(event) {
+                alert('Error: ' + event.error);
+            }
+        }
+
+        window.onload = function() {
+            const text = document.getElementById("spoken-answer");
+            if (text) {
+                const msg = new SpeechSynthesisUtterance();
+                msg.text = text.textContent;
+                msg.lang = "en-US";
+                window.speechSynthesis.speak(msg);
+            }
+        }
+    </script>
+</body>
+</html>
