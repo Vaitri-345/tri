@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tri Assistant</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 30px; }
+        .chat-box { background: white; padding: 20px; max-width: 600px; margin: auto; border-radius: 10px; }
+        .message { margin-bottom: 15px; }
+        .user { font-weight: bold; color: blue; }
+        .tri { font-weight: bold; color: green; }
+    </style>
+</head>
+<body>
+    <div class="chat-box">
+        <h2>Tri Assistant</h2>
+        {% for msg in chat %}
+            <div class="message">
+                <span class="user">You:</span> {{ msg.you }}<br>
+                <span class="tri">Tri:</span> {{ msg.tri }}
+            </div>
+        {% endfor %}
+        <form action="/ask" method="post">
+            <input type="text" name="message" style="width: 80%;" required>
+            <button type="submit">Ask</button>
+        </form>
+    </div>
+</body>
+</html>

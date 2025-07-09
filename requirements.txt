@@ -1,0 +1,4 @@
+flask
+wikipedia
+pyttsx3
+requests
